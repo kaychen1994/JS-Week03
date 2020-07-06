@@ -98,9 +98,7 @@ const app = new Vue({
         openModal(isNew, item) {
             switch (isNew) {
                 case 'new':
-                    this.temProduct = {
-                        imageUrl: [],
-                    };
+                    this.temProduct = {};
                     $('#productModal').modal('show');
                     break;
                 case 'edit':
