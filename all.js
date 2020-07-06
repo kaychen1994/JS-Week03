@@ -63,22 +63,20 @@ const app = new Vue({
                 unit: "支"
             }
         ],
-        temProduct: {
-            imageUrl: [],
-        },
+        temProduct: {},
     },
     methods: {
         updateProduct() {
             if (this.temProduct.id) {
                 const id = this.temProduct.id;
                 this.products.forEach((item, i) => {
-                    if (item.id === id) {
-                        this.products[i] = this.temProduct;
+                    if (item.id === id) { // 假如 products.id === temProduct.id 相同
+                        this.products[i] = this.temProduct;  // 原本資料列的 products = temProduct
                     }
                 });
             }
             else {
-                const id = new Date().getTime(); // 取 unix time
+                const id = new Date().getTime(); // 假如 products.id !== temProduct.id 取 unix time
                 this.temProduct.id = id;
                 this.products.push(this.temProduct); // 新增 temProduct 到 products list 上
             }
@@ -89,7 +87,7 @@ const app = new Vue({
             if (this.temProduct.id) {
                 const id = this.temProduct.id;
                 this.products.forEach((item, i) => { // 刪掉符合 id 的 products
-                    if (item.id === id) {
+                    if (item.id === id) { // 假如 products.id === temProduct.id 相同
                         this.products.splice(i, 1);
                         this.temProduct = {};
                     }
@@ -103,12 +101,10 @@ const app = new Vue({
                     this.temProduct = {
                         imageUrl: [],
                     };
-                    this.isNew = true;
                     $('#productModal').modal('show');
                     break;
                 case 'edit':
                     this.temProduct = Object.assign({}, item); // 淺拷貝
-                    this.isNew = false;
                     $('#productModal').modal('show');
                     break;
                 case 'delete':
